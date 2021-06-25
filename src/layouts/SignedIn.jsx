@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Dropdown, Image, MenuItem} from "semantic-ui-react";
-import ImageService from "../Services/imageService";
+import ImageService from "../services/imageService";
 
 const SignedIn = ({signOut}) => {
-    let id = 2;
+    let id = 1;
     const [image, setImage] = useState({});
     useEffect(() => {
         let imageService = new ImageService();
@@ -14,8 +14,9 @@ const SignedIn = ({signOut}) => {
     return (
         <div>
             <MenuItem>
-                <Image avatar spaced={"left"} src={image == null ? "https://res.cloudinary.com/mfbilgin/image/upload/v1624274588/user_30px_ilz0fp.png" : image.imagePath  } />
-                <Dropdown pointing={"top right"}>
+                <Image avatar spaced={"right"} src={image == null ? "https://res.cloudinary.com/mfbilgin/image/upload/v1624274588/user_30px_ilz0fp.png" : image.imagePath  } />
+
+                <Dropdown pointing={"top right"} text={image.staff?.firstName + " " + image.staff?.lastName.toUpperCase()}>
                     <Dropdown.Menu>
                         <Dropdown.Item text={"Bilgilerim"} icon={"info"}/>
                         <Dropdown.Item text={"Çıkış Yap"} icon={"sign-out"} onClick={signOut}/>

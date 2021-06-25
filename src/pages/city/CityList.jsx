@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import CityService from "../Services/cityService";
+import CityService from "../../services/cityService";
 import {Dropdown} from "semantic-ui-react";
 
 const CityList = () => {
@@ -19,15 +19,16 @@ const CityList = () => {
             <br/>
             <br/>
         <Dropdown
-
+            style={{textAlign:'center'}}
             pointing={"left"}
+            scrolling
             clearable
             item
             placeholder="Şehirler "
             options={cityOption}
             onChange={(event, data) => {
-            console.log(data.value)
-            }
+                    console.log(data.value)
+                }
             }
         />
         </div>

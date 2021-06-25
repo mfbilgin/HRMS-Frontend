@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Button, Icon, Image, Table} from "semantic-ui-react";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import ResumeService from "../Services/resumeService";
+import ResumeService from "../../services/resumeService";
 
 const ResumeList = () => {
     const [resumes, setResumes] = useState([]);
@@ -53,16 +53,20 @@ const ResumeList = () => {
 
                                 <Table.Cell>
                                     <a href={resume.githubAddress} target={"_blank"} rel="noopener noreferrer">
-                                    <Button color={"black"}>
-                                        <Icon name="github" /> Github
+                                    <Button animated color={"black"}>
+                                        <Button.Content visible><Icon name="github" /></Button.Content>
+                                         <Button.Content hidden>Github</Button.Content>
                                     </Button>
                                 </a>
                                 </Table.Cell>
 
                                 <Table.Cell>
                                     <a href={resume.linkedinAddress} target={"_blank"} rel="noopener noreferrer">
-                                        <Button color={"linkedin"}>
-                                            <Icon name="linkedin" /> Github
+                                        <Button animated color={"linkedin"}>
+                                            <Button.Content visible><Icon name="linkedin"/></Button.Content>
+                                            <Button.Content hidden>
+                                                LinkedIn
+                                            </Button.Content>
                                         </Button>
                                     </a>
                                 </Table.Cell>

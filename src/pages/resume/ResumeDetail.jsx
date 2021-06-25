@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
-import {Button, Card, Header, Icon, Image, Rating, Table} from "semantic-ui-react";
-import ResumeService from "../Services/resumeService";
+import { useParams} from "react-router-dom";
+import {Button, Card, Image, Rating, Table} from "semantic-ui-react";
+import ResumeService from "../../services/resumeService";
 
 const ResumeDetail = () => {
     let {id} = useParams();

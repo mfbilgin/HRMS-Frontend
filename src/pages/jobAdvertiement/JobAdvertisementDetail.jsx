@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router";
-import JobAdvertisementService from "../Services/jobAdvertisementService";
+import JobAdvertisementService from "../../services/jobAdvertisementService";
 import {Button, Card, Grid, Header, Icon, Table} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
@@ -30,7 +30,7 @@ const JobAdvertisementDetail = () => {
   */
 
         <div>
-            <Card fluid color={"black"}>
+            <Card fluid color={"black"} style={{marginTop:20}}>
                 <Card.Content header="İş Tanımı" />
                 <Card.Content>
                   <strong>
@@ -96,9 +96,9 @@ const JobAdvertisementDetail = () => {
                                         </Header>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {jobAdvertisement.employer?.webAddress}
+                                        {jobAdvertisement.employer?.webAddress + " "}
 
-                                        <a href={"https://" + jobAdvertisement.employer?.webAddress} target={"_blank"} >
+                                        <a href={"https://" + jobAdvertisement.employer?.webAddress} target={"_blank"} rel="noreferrer" >
                                             <Icon name={"external alternate"}/>
                                         </a>
                                     </Table.Cell>
@@ -145,16 +145,16 @@ const JobAdvertisementDetail = () => {
                                     <Table.Cell>{jobAdvertisement.city?.name}</Table.Cell>
                                 </Table.Row>
 
- {/*                               <Table.Row>
+                                <Table.Row>
                                     <Table.Cell>Çalışma Yeri</Table.Cell>
-                                    <Table.Cell>{jobAdvertisement.workPlace?.name}</Table.Cell>
+                                    <Table.Cell>{jobAdvertisement.workType?.name}</Table.Cell>
                                 </Table.Row>
 
                                 <Table.Row>
                                     <Table.Cell>Çalışma Zamanı</Table.Cell>
                                     <Table.Cell>{jobAdvertisement.workTime?.name}</Table.Cell>
                                 </Table.Row>
-*/}
+
                                 <Table.Row>
                                     <Table.Cell>Minimum Maaş</Table.Cell>
                                     <Table.Cell> {jobAdvertisement.minSalary}<Icon name={"try"}/></Table.Cell>
