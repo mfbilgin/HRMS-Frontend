@@ -16,12 +16,9 @@ export default function systemStaffList() {
         <Table.Header style={{ textAlign: "center" }}></Table.Header>
         <Table.Header>
           <Table.Row textAlign={"center"}>
-            <Table.HeaderCell>Şirket Adı</Table.HeaderCell>
-            <Table.HeaderCell>İş Pozisyonu</Table.HeaderCell>
-            <Table.HeaderCell>Şehir</Table.HeaderCell>
-            <Table.HeaderCell>Çalışma Yeri</Table.HeaderCell>
-            <Table.HeaderCell>Çalışma Zamanı</Table.HeaderCell>
-            <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
+            <Table.HeaderCell>İsim</Table.HeaderCell>
+            <Table.HeaderCell>Soyisim</Table.HeaderCell>
+            <Table.HeaderCell>Doğum Yılı</Table.HeaderCell>
             <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
