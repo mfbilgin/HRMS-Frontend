@@ -67,14 +67,14 @@ const ResumeList = () => {
                                     </a>
                                 </Table.Cell>
 
-                                <Table.Cell> <Button
-                                    as={Link}
-                                    to={`/curriculumVitaeDetails/${resume.staff.id}`}
-                                    content="Detaylara Git"
-                                    color="grey"
-                                    icon="right arrow"
-                                    labelPosition="right"
-                                /></Table.Cell>
+                                <Table.Cell>
+                                    <Button color={"grey"} animated as={Link} to={`/curriculumVitaeDetails/${resume.staff.id}`}>
+                                        <Button.Content visible>Detaylara Git</Button.Content>
+                                        <Button.Content hidden>
+                                            <Icon name="arrow right" />
+                                        </Button.Content>
+                                    </Button>
+                                </Table.Cell>
                             </Table.Row>
                         ))
                     }
