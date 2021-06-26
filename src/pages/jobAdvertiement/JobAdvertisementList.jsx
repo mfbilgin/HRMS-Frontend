@@ -21,7 +21,7 @@ const JobAdvertisementList = () => {
           </Grid.Column>
           <Grid.Column width={12}>
             <Table>
-              <Table.Header style={{ textAlign: "center" }}></Table.Header>
+              <Table.Header style={{textAlign: "center"}}/>
               <Table.Header>
                 <Table.Row textAlign={"center"}>
                   <Table.HeaderCell>Şirket Adı</Table.HeaderCell>
@@ -50,13 +50,13 @@ const JobAdvertisementList = () => {
                     <Table.Cell>
                       <Button
                         color={"grey"}
-                        animated
+                        animated={"fade"}
                         as={Link}
                         to={`/jobAdvertisementDetails/${jobAdvertisement.id}`}
                       >
                         <Button.Content visible>Detaylara Git</Button.Content>
                         <Button.Content hidden>
-                          <Icon name="arrow right" />
+                          <Icon name="arrow alternate circle right outline" color={"olive"} size={"large"}/>
                         </Button.Content>
                       </Button>
                     </Table.Cell>

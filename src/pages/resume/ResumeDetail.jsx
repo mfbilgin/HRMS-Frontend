@@ -10,7 +10,6 @@ const ResumeDetail = () => {
         let resumeService = new ResumeService();
         resumeService.getByStaffId(id).then(result => setResume(result.data.data))
     }, [id]);
-    console.log(resume)
     return (
         <div>
             <Card style={{margin:20, left:"38%"}}>
@@ -29,7 +28,7 @@ const ResumeDetail = () => {
 
             <Table celled padded>
                 <Table.Header>
-                    <Table.Row textAlign={'center'}>
+                    <Table.Row textAlign={'center'}  >
                         <Table.HeaderCell>Teknolojiler</Table.HeaderCell>
                         <Table.HeaderCell>Diller</Table.HeaderCell>
                         <Table.HeaderCell>Okullar</Table.HeaderCell>
@@ -39,10 +38,10 @@ const ResumeDetail = () => {
                 </Table.Header>
 
                 <Table.Body>
-                    <Table.Row textAlign={'center'}>
+                    <Table.Row textAlign={'center'} >
                         <Table.Cell>
                             {resume.skills?.map(skill => (
-                            <div>
+                            <div key={skill.id}>
 
                                 <Image src={"https://img.shields.io/badge/" + skill.name +"-blue?style=for-the-badge&logo="+ skill.name+"&logoColor=white"}/>
                                 <br/>
@@ -51,7 +50,7 @@ const ResumeDetail = () => {
                         </Table.Cell>
                         <Table.Cell>
                             {resume.languages?.map(language => (
-                                <div>
+                                <div key={language.id}>
                                     {language.name}
                                     <br/>
                                     <Rating icon="star" disabled defaultRating={language.level} maxRating={5} />
@@ -61,14 +60,14 @@ const ResumeDetail = () => {
                         </Table.Cell>
                         <Table.Cell>
                             {resume.schools?.map(school => (
-                                <div>
+                                <div key={school.id}>
                                     {school.schoolName+ "/" +school.department + " (" + school.startYear + " - " + school.graduationYear + " )"}
                                 </div>
                             ))}
                         </Table.Cell>
                         <Table.Cell>
                             {resume.works?.map(work => (
-                                <div>
+                                <div key={work.id}>
                                     {work.companyName+ "/" +work.jobPosition + " (" + work.startYear + " - " + work.leaveYear + " )"}
                                 </div>
                             ))}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Menu } from "semantic-ui-react";
+import {Button, Icon, Menu} from "semantic-ui-react";
 
 const SignedOut = ({ signIn }) => {
   return (
@@ -7,16 +7,26 @@ const SignedOut = ({ signIn }) => {
       <Menu.Item>
         <Button
           secondary
-          content="Giriş Yap"
-          icon={"sign-in"}
+          animated={"fade"}
           onClick={signIn}
-        />
+        >
+            <Button.Content visible>
+                Giriş Yap
+            </Button.Content>
+            <Button.Content hidden> <Icon name={"sign-in"}/></Button.Content>
+        </Button>
         <Button
           primary
           style={{ marginLeft: "0.5em" }}
-          content={"Kaydol"}
-          icon={"signup"}
-        />
+          animated={"fade"}
+        >
+            <Button.Content visible>
+                Kaydol
+            </Button.Content>
+            <Button.Content hidden>
+                <Icon name={"signup"}/>
+            </Button.Content>
+        </Button>
       </Menu.Item>
     </div>
   );

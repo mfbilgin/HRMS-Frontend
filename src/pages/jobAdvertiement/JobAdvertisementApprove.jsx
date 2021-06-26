@@ -2,32 +2,40 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Button, Icon, Table } from "semantic-ui-react";
-import swal from "sweetalert";
+import { toast } from "react-toastify";
 
 export default function JobAdvertisementApprove() {
   const [jobAdvertisement, setJobAdvertisement] = useState([]);
-
+  let history = useHistory();
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .getByStatusIsTrueAndApprovedByAdminIsFalse()
       .then((result) => setJobAdvertisement(result.data.data));
   }, []);
-  const handleOnClick = (id) => {
+  const handleAcceptOnClick = (id) => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .approveJobAdvertisement(id)
-      .then(
-        (result) =>
-          swal(
-            `${result.data.message}`,
-            "",
-            `${result.data.success ? "success" : "error"}`
-          ),
-        window.location.reload()
-      );
+      .then((result) => toast.success(result.data.message));
+  };
+  const handleRefuseOnClick = (jobAdvertisement) => {
+    let jobAdvertisementService = new JobAdvertisementService();
+    jobAdvertisementService
+      .delete(jobAdvertisement)
+      .then((result) => toast.success(result.data.message, "success"));
+    new Promise((r) => setTimeout(r, 500));
+    handleReload();
+  };
+
+  let handleReload = () => {
+    if (jobAdvertisement.length > 1) {
+      window.location.reload();
+    } else {
+      history.push("/");
+    }
   };
   return (
     <div style={{ margin: 20 }}>
@@ -41,6 +49,7 @@ export default function JobAdvertisementApprove() {
             <Table.HeaderCell>Çalışma Yeri</Table.HeaderCell>
             <Table.HeaderCell>Çalışma Zamanı</Table.HeaderCell>
             <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
+            <Table.HeaderCell />
             <Table.HeaderCell />
             <Table.HeaderCell />
           </Table.Row>
@@ -60,12 +69,12 @@ export default function JobAdvertisementApprove() {
               <Table.Cell>
                 <Button
                   color={"green"}
-                  animated
+                  animated="vertical"
                   onClick={() => {
-                    handleOnClick(jobAdvertisement.id);
+                    handleAcceptOnClick(jobAdvertisement.id);
                   }}
                 >
-                  <Button.Content visible>İlanı Onayla</Button.Content>
+                  <Button.Content visible>Onayla</Button.Content>
                   <Button.Content hidden>
                     <Icon name="check circle outline" />
                   </Button.Content>
@@ -74,8 +83,23 @@ export default function JobAdvertisementApprove() {
 
               <Table.Cell>
                 <Button
+                  color={"red"}
+                  animated="vertical"
+                  onClick={() => {
+                    handleRefuseOnClick(jobAdvertisement);
+                  }}
+                >
+                  <Button.Content visible>Reddet</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="trash alternate outline" />
+                  </Button.Content>
+                </Button>
+              </Table.Cell>
+
+              <Table.Cell>
+                <Button
                   color={"grey"}
-                  animated
+                  animated="vertical"
                   as={Link}
                   to={`/jobAdvertisementDetails/${jobAdvertisement.id}`}
                 >

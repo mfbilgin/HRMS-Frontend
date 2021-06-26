@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import SystemStaffService from "../../services/systemStaffService";
-
-export default function systemStaffList() {
+import { Button, Icon, Table } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+export default function SystemStaffList() {
   const [systemStaff, setSystemStaff] = useState([]);
   useEffect(() => {
     let systemStaffService = new SystemStaffService();
@@ -24,26 +25,21 @@ export default function systemStaffList() {
         </Table.Header>
 
         <Table.Body>
-          {jobAdvertisement.map((jobAdvertisement) => (
-            <Table.Row key={jobAdvertisement.id} textAlign={"center"}>
-              <Table.Cell>{jobAdvertisement.employer.companyName}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.jobPosition.name}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.city.name}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.workType.name}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.workTime?.name}</Table.Cell>
-              <Table.Cell>
-                {jobAdvertisement.applicationDeadline.toString()}
-              </Table.Cell>
+          {systemStaff.map((systemStaff) => (
+            <Table.Row key={systemStaff.id} textAlign={"center"}>
+              <Table.Cell>{systemStaff.firstName}</Table.Cell>
+              <Table.Cell>{systemStaff.lastName}</Table.Cell>
+              <Table.Cell>{systemStaff.birthYear}</Table.Cell>
               <Table.Cell>
                 <Button
-                  color={"grey"}
-                  animated
+                  color={"green"}
+                  animated="fade"
                   as={Link}
-                  to={`/jobAdvertisementDetails/${jobAdvertisement.id}`}
+                  to={`/sistemÇalışanBilgileriGüncelle/${systemStaff.id}`}
                 >
-                  <Button.Content visible>Detaylara Git</Button.Content>
+                  <Button.Content visible>Güncelle</Button.Content>
                   <Button.Content hidden>
-                    <Icon name="arrow right" />
+                    <Icon name="pencil alternate" />
                   </Button.Content>
                 </Button>
               </Table.Cell>

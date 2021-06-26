@@ -9,6 +9,9 @@ import EmployerDetail from "../pages/employer/EmployerDetail";
 import JobAdvertisementAdd from "../pages/jobAdvertiement/JobAdvertisementAdd";
 import Login from "../pages/auth/Login";
 import JobAdvertisementApprove from "../pages/jobAdvertiement/JobAdvertisementApprove";
+import SystemStaffList from "../pages/systemStaff/SystemStaffList";
+import SystemStaffUpdate from "../pages/systemStaff/SystemStaffUpdate";
+
 
 export default function Home() {
   return (
@@ -23,10 +26,15 @@ export default function Home() {
             component={JobAdvertisementList}
           />
           <Route
+            exact
             path={"/jobAdvertisementDetails/:id"}
             component={JobAdvertisementDetail}
           />
-          <Route path={"/işİlanıOnayla"} component={JobAdvertisementApprove} />
+          <Route
+            exact
+            path={"/işİlanıOnayla"}
+            component={JobAdvertisementApprove}
+          />
           <Route exact path={"/curriculumVitaes"} component={ResumeList} />
           <Route
             exact
@@ -35,6 +43,18 @@ export default function Home() {
           />
           <Route exact path={"/şirketler/:id"} component={EmployerDetail} />
           <Route exact path={"/ilanEkle"} component={JobAdvertisementAdd} />
+          <Route
+            exact
+            path={"/sistemÇalışanları"}
+            component={SystemStaffList}
+          />
+          <Route
+            exact
+            path={"/sistemÇalışanBilgileriGüncelle/:id"}
+            component={SystemStaffUpdate}
+          />
+
+
         </Grid.Column>
       </Grid.Row>
     </Grid>

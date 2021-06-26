@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Formik } from "formik";
+import React, {useEffect, useState} from "react";
+import {Formik} from "formik";
 import * as Yup from "yup";
 import WorkTimeService from "../../services/workTimeService";
 import WorkTypeService from "../../services/workTypeService";
@@ -7,13 +7,14 @@ import CityService from "../../services/cityService";
 import JobPositionService from "../../services/JobPositionService";
 import MFBTextArea from "../../utilities/customFormControls/MFBTextArea";
 import MFBTextInput from "../../utilities/customFormControls/MFBTextInput";
-import swal from "sweetalert";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
-import { Form, Grid, Card, Dropdown, Button, Icon } from "semantic-ui-react";
-import { useHistory } from "react-router";
+import {Button, Card, Dropdown, Form, Grid, Icon} from "semantic-ui-react";
+import {useHistory} from "react-router";
+import {toast} from "react-toastify";
+
 const JobAdvertisementAdd = () => {
   function handleJobAdvertisementValue(values) {
-    let jobAdvertisement = {
+    return {
       employer: {
         activatedBySystemStaff: true,
         companyName: "string",
@@ -57,8 +58,6 @@ const JobAdvertisementAdd = () => {
       releaseDate: "2000-01-01",
       status: true,
     };
-
-    return jobAdvertisement;
   }
 
   let jobAdvertisementService = new JobAdvertisementService();
@@ -146,18 +145,15 @@ const JobAdvertisementAdd = () => {
   };
   let history = useHistory();
   const handleOnClick = (prop) => {
-    prop.values.employerId = 5;
+    prop.values.employerId = 3;
     jobAdvertisementService
       .add(handleJobAdvertisementValue(prop.values))
-      .then(
-        (result) =>
-          swal(
-            `${result.data.message}`,
-            `${result.data.success ? "İş ilanı onaylanacak" : "Hata"}`,
-            `${result.data.success ? "success" : "error"}`
-          ),
-        history.push("/")
-      );
+      .then((result) => {
+        result.data.success
+          ? toast.success(result.data.message)
+          : toast.error(result.data.message);
+        history.push("/");
+      });
   };
 
   return (

@@ -27,7 +27,7 @@ const Navi = () => {
         <Menu.Menu>
           <Menu.Item>
             <Button
-              animated
+                animated="fade"
               color={"orange"}
               as={Link}
               to={"/curriculumVitaes"}
@@ -42,7 +42,7 @@ const Navi = () => {
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <Button as={Link} to={"/ilanEkle"} animated color={"facebook"}>
+            <Button as={Link} to={"/ilanEkle"} animated="fade" color={"facebook"}>
               <Button.Content visible>İlan Ekle</Button.Content>
               <Button.Content hidden>
                 <Icon name={"add"} />
