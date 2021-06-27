@@ -28,7 +28,7 @@ const WorkTimeForFilter = () => {
                 placeholder="Çalışma Zamanı"
                 options={workTimeOption}
                 onChange={(event, data) => {
-                    console.log(data.value);
+                    window.localStorage.setItem("workTimeId",data.value)
                 }}
             />
         </div>

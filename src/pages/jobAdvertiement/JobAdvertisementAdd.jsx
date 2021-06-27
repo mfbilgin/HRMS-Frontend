@@ -8,7 +8,7 @@ import JobPositionService from "../../services/JobPositionService";
 import MFBTextArea from "../../utilities/customFormControls/MFBTextArea";
 import MFBTextInput from "../../utilities/customFormControls/MFBTextInput";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
-import {Button, Card, Dropdown, Form, Grid, Icon} from "semantic-ui-react";
+import {Button, Card, Dropdown, Form, Grid, Icon, Label} from "semantic-ui-react";
 import {useHistory} from "react-router";
 import {toast} from "react-toastify";
 
@@ -144,18 +144,27 @@ const JobAdvertisementAdd = () => {
     prop.setFieldValue(fieldName, value);
   };
   let history = useHistory();
-  const handleOnClick = (prop) => {
-    prop.values.employerId = 3;
+  // const handleOnClick = (prop) => {
+  //   prop.values.employerId = 3;
+  //   jobAdvertisementService
+  //     .add(handleJobAdvertisementValue(prop.values))
+  //     .then((result) => {
+  //       result.data.success
+  //         ? toast.success(result.data.message)
+  //         : toast.error(result.data.message);
+  //       history.push("/");
+  //     });
+  // };
+  const handleOnSubmit = (values) => {
+    values.employerId = 3;
     jobAdvertisementService
-      .add(handleJobAdvertisementValue(prop.values))
-      .then((result) => {
-        result.data.success
-          ? toast.success(result.data.message)
-          : toast.error(result.data.message);
-        history.push("/");
-      });
-  };
-
+        .add(handleJobAdvertisementValue(values))
+        .then((result) => {
+          result.data.success
+              ? toast.success(result.data.message)
+              : toast.error(result.data.message);
+          history.push("/");
+        });  }
   return (
     <Card fluid>
       <Card.Content>
@@ -166,10 +175,12 @@ const JobAdvertisementAdd = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={JobAdvertAddSchema}
-         onSubmit={() => {}}>
+         onSubmit={(values) => {
+           handleOnSubmit(values)
+         }}>
           {(formikprops) => (
             <div>
-              <Form style={{ marginTop: 20 }}>
+              <Form onSubmit={formikprops.handleSubmit} style={{ marginTop: 20 }}>
                 <Form.Field style={{ textAlign: "center" }}>
                   <label style={{ fontSize: 15 }}>Şehirler</label>
                   <Dropdown
@@ -189,9 +200,7 @@ const JobAdvertisementAdd = () => {
                     options={cityOption}
                   />
                   {formikprops.errors.cityId && formikprops.touched.cityId && (
-                    <div className={"ui pointing red basic label"}>
-                      {formikprops.errors.cityId}
-                    </div>
+                    <Label pointing basic color="red" content={formikprops.errors.cityId} />
                   )}
                 </Form.Field>
                 <Form.Field>
@@ -348,9 +357,6 @@ const JobAdvertisementAdd = () => {
 
                 <Button
                   type="submit"
-                  onClick={() => {
-                    handleOnClick(formikprops);
-                  }}
                   animated="vertical"
                   color="google plus"
                   style={{ height: "28%", width: "15%", marginTop: "12px" }}

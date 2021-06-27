@@ -27,7 +27,8 @@ const CityList = () => {
             placeholder="Şehirler "
             options={cityOption}
             onChange={(event, data) => {
-                    console.log(data.value)
+                window.localStorage.setItem("cityId",data.value);
+
                 }
             }
         />

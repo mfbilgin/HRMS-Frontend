@@ -41,4 +41,15 @@ export default class JobAdvertisementService {
   add(value) {
     return axios.post("http://localhost:8080/api/jobAdvertisement/add", value);
   }
+
+
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(cityId){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id?cityId="+cityId);
+  }
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(cityId,workTimeId){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id?cityId=" +cityId + "&workTimeId="+workTimeId);
+  }
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id?workTimeId="+workTimeId);
+  }
 }

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Button, Grid, Icon, Table} from "semantic-ui-react";
+import {Button, Grid, Icon, Menu, Table} from "semantic-ui-react";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
 import {Link} from "react-router-dom";
 import FavoriteService from "../../services/favoriteService";
 import swal from "sweetalert";
-import Filter from "../../layouts/Filter";
+import WorkTimeForFilter from "../workTime/WorkTimeForFilter";
+import CityList from "../city/CityList";
 
 const JobAdvertisementList = () => {
 
@@ -80,15 +81,75 @@ const JobAdvertisementList = () => {
         favorite.jobAdvertisement.id = jobAdvertisementId;
         let favoriteService = new FavoriteService();
         favoriteService.add(favorite).then(result => swal(`${result.data.message}`,"",`${result.data.success ? "success" : "error"}`));
-        console.log(favorite); 
     }
+    const [workTimeId, setWorkTimeId] = useState(0);
+    const [cityId, setCityId] = useState(0);
+    //const [, setJobAdvertisements] = useState([]);
 
+    useEffect(() => {
+        //let jobAdvertisementService = new JobAdvertisementService();
+        // jobAdvertisementService
+        //   .getByStatusIsTrueAndEmployer_IdAndCity_IdOrderByApplicationDeadlineAsc(
+        //     employerId,
+        //     cityId
+        //   )
+        //   .then((result) => setJobAdvertisements(result.data.data));
+    }, [cityId, workTimeId]);
+
+    function handleWorkTimeId(id) {
+        setWorkTimeId(id);
+    }
+    function handleCityId(id) {
+        setCityId(id);
+    }
+    const handleApplyButtonOnClick = () => {
+        let jobAdvertisementService = new JobAdvertisementService();
+        let cityId = window.localStorage.getItem("cityId")
+        let workTimeId = window.localStorage.getItem("workTimeId")
+        if (cityId !== "" && workTimeId !== ""){
+            jobAdvertisementService.getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(cityId,workTimeId).then(result => setJobAdvertisements(result.data.data));
+        }
+        else if(cityId !== "" && workTimeId ===""){
+            jobAdvertisementService.getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(cityId).then(result => setJobAdvertisements(result.data.data));
+        }
+        else if(cityId ==="" && workTimeId !== ""){
+            jobAdvertisementService.getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId).then(result => setJobAdvertisements(result.data.data));
+        }
+
+    }
     return (
         <div style={{margin: 20}}>
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={3}>
-                        <Filter style={{marginRight:20}}/>
+                        <Menu vertical style={{marginTop:20}}>
+                            <Menu.Item>
+                                <Menu.Header>Filtreler</Menu.Header>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <WorkTimeForFilter setWorkTimeId={handleWorkTimeId} />
+                            </Menu.Item>
+
+                            <Menu.Item>
+                                <CityList setCityId={handleCityId} />
+                            </Menu.Item>
+
+                            <Menu.Item>
+                                <Button
+                                    animated
+                                    color={"blue"}
+                                    onClick={() => {
+                                        handleApplyButtonOnClick();
+
+                                    }}
+                                >
+                                    <Button.Content visible>UYGULA</Button.Content>
+                                    <Button.Content hidden>
+                                        <Icon name={"location arrow"} />
+                                    </Button.Content>
+                                </Button>
+                            </Menu.Item>
+                        </Menu>
                     </Grid.Column>
                     <Grid.Column width={13}>
                         <Table>
