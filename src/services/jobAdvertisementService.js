@@ -22,8 +22,8 @@ export default class JobAdvertisementService {
     );
   }
 
-  delete(id) {
-    return axios.post("http://localhost:8080/api/jobAdvertisement/delete", id);
+  delete(jobAdvertisement) {
+    return axios.post("http://localhost:8080/api/jobAdvertisement/delete", jobAdvertisement);
   }
 
   getByStatusIsTrueAndEmployer_IdAndCity_IdOrderByApplicationDeadlineAsc(

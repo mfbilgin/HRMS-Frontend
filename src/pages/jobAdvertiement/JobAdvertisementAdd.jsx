@@ -166,7 +166,7 @@ const JobAdvertisementAdd = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={JobAdvertAddSchema}
-        >
+         onSubmit={() => {}}>
           {(formikprops) => (
             <div>
               <Form style={{ marginTop: 20 }}>
@@ -284,7 +284,7 @@ const JobAdvertisementAdd = () => {
                       <MFBTextInput
                         style={{ width: "100%" }}
                         type="number"
-                        placeholder="Minimum maas (opsiyonel)"
+                        placeholder="Minimum maaş (opsiyonel)"
                         value={formikprops.values.minSalary}
                         name="minSalary"
                         onChange={formikprops.handleChange}

@@ -11,6 +11,7 @@ import Login from "../pages/auth/Login";
 import JobAdvertisementApprove from "../pages/jobAdvertiement/JobAdvertisementApprove";
 import SystemStaffList from "../pages/systemStaff/SystemStaffList";
 import SystemStaffUpdate from "../pages/systemStaff/SystemStaffUpdate";
+import FavoriteList from "./Favorite/FavoriteList";
 
 
 export default function Home() {
@@ -53,7 +54,11 @@ export default function Home() {
             path={"/sistemÇalışanBilgileriGüncelle/:id"}
             component={SystemStaffUpdate}
           />
-
+          <Route
+              exact
+              path={"/favorilerim"}
+              component={FavoriteList}
+          />
 
         </Grid.Column>
       </Grid.Row>

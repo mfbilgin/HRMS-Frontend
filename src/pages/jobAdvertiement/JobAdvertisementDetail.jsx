@@ -14,21 +14,6 @@ const JobAdvertisementDetail = () => {
       .then((result) => setJobAdvertisement(result.data.data));
   }, [id]);
   return (
-    /*
-    "minSalary": 1500,
-    "maxSalary": 3500,
-    "emptyPositionCount": 8,
-    "applicationDeadline": "2021-06-22",
-    "releaseDate": "2021-06-22",
-    "status": true,
-    "city": {
-      "id": 34,
-      "name": "Bursa"
-    },
-
-  }
-  */
-
     <div>
       <Card fluid color={"black"} style={{ marginTop: 20 }}>
         <Card.Content header="İş Tanımı" />

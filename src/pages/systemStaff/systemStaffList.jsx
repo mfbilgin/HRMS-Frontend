@@ -14,7 +14,7 @@ export default function SystemStaffList() {
   return (
     <div style={{ margin: 20 }}>
       <Table>
-        <Table.Header style={{ textAlign: "center" }}></Table.Header>
+        <Table.Header style={{textAlign: "center"}}/>
         <Table.Header>
           <Table.Row textAlign={"center"}>
             <Table.HeaderCell>İsim</Table.HeaderCell>

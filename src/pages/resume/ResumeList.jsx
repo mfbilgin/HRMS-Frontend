@@ -33,7 +33,7 @@ const ResumeList = () => {
                         resumes.map(resume => (
                             <Table.Row key={resume.staff.id} textAlign={'center'}>
                                 <Table.Cell><Image avatar spaced={"left"}
-                                                   src={resume == null ? "https://res.cloudinary.com/mfbilgin/image/upload/v1624274588/user_30px_ilz0fp.png" : resume.imageUrl}/></Table.Cell>
+                                                   src={resume.imageUrl == null ? "https://res.cloudinary.com/mfbilgin/image/upload/v1624274588/user_30px_ilz0fp.png" : resume.imageUrl}/></Table.Cell>
 
                                 <Table.Cell>
                                     {resume.staff.firstName + " " + resume.staff.lastName.toUpperCase()}
