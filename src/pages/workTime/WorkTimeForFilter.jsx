@@ -21,7 +21,7 @@ const WorkTimeForFilter = () => {
             <br />
             <br />
             <Dropdown
-                style={{ textAlign: "center" }}
+                style={{ textAlign: "center" ,color:"teal"}}
                 pointing={"left"}
                 clearable
                 item

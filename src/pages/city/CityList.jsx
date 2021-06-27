@@ -19,8 +19,7 @@ const CityList = () => {
             <br/>
             <br/>
         <Dropdown
-            style={{textAlign:'center'}}
-            pointing={"left"}
+            style={{textAlign:'center',color:'teal'}}
             scrolling
             clearable
             item

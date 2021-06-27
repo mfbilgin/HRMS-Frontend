@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Grid, Icon, Menu, Table} from "semantic-ui-react";
+import {Button, Dropdown, Grid, Icon, Menu, Table} from "semantic-ui-react";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
 import {Link} from "react-router-dom";
 import FavoriteService from "../../services/favoriteService";
@@ -10,22 +10,46 @@ import CityList from "../city/CityList";
 const JobAdvertisementList = () => {
 
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
-    // const [favorites, setFavorites] = useState([]);
-    //
-    // const handleJobAdvertisement = () => {
-    //     let favoriteService = new FavoriteService();
-    //     jobAdvertisements.forEach((jobAdvertisement,index) => {
-    //         console.log(jobAdvertisement);
-    //     })
-    //
-    //
-    // }
-
+    const [pages, setPages] = useState([]);
+    const [pageSizes, setPageSizes] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
+    const [workTimeId, setWorkTimeId] = useState(0);
+    const [cityId, setCityId] = useState(0);
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService();
-        jobAdvertisementService.getByStatusIsTrueAndOrderByApplicationDeadlineAsc().then((result) => setJobAdvertisements(result.data.data));
-    }, []);
+        jobAdvertisementService.getByStatusIsTrueAndOrderByApplicationDeadlineAsc(1,pageSize).then((result) => setJobAdvertisements(result.data.data));
+        let pageSizes = [];
+        pageSizes.push(10)
+        pageSizes.push(20)
+        pageSizes.push(50)
+        pageSizes.push(100)
+        setPageSizes(pageSizes);
+        jobAdvertisementService.getPageCount(pageSize).then(result => {
+            let pageCount = result.data.data
+            let pages = [];
+            for (let i = 1;i <= pageCount;i++){
+                pages.push(i);
+            }
+            setPages(pages);
+        })
+    }, [pageSize]);
+
+    const pageSizeOption = pageSizes.map((pagesize,index) => ({
+        key:index,
+        value : pagesize,
+        text :pagesize
+    }))
+    function handleChangePage(pageNo) {
+        let jobAdvertService = new JobAdvertisementService()
+        jobAdvertService.getByStatusIsTrueAndOrderByApplicationDeadlineAsc(pageNo, pageSize).then(result => setJobAdvertisements(result.data.data))
+    }
+    function handleChangePageSize(pageSize) {
+        if (pageSize === ""){
+            pageSize = 10;
+        }
+        setPageSize(pageSize)
+    }
 
     const favorite = {
         "favoriteId": 0,
@@ -82,8 +106,7 @@ const JobAdvertisementList = () => {
         let favoriteService = new FavoriteService();
         favoriteService.add(favorite).then(result => swal(`${result.data.message}`,"",`${result.data.success ? "success" : "error"}`));
     }
-    const [workTimeId, setWorkTimeId] = useState(0);
-    const [cityId, setCityId] = useState(0);
+
     //const [, setJobAdvertisements] = useState([]);
 
     useEffect(() => {
@@ -115,6 +138,10 @@ const JobAdvertisementList = () => {
         else if(cityId ==="" && workTimeId !== ""){
             jobAdvertisementService.getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId).then(result => setJobAdvertisements(result.data.data));
         }
+        else{
+            jobAdvertisementService.getByStatusIsTrueAndOrderByApplicationDeadlineAsc().then((result) => setJobAdvertisements(result.data.data));
+
+        }
 
     }
     return (
@@ -122,7 +149,7 @@ const JobAdvertisementList = () => {
             <Grid>
                 <Grid.Row>
                     <Grid.Column width={3}>
-                        <Menu vertical style={{marginTop:20}}>
+                        <Menu vertical>
                             <Menu.Item>
                                 <Menu.Header>Filtreler</Menu.Header>
                             </Menu.Item>
@@ -130,9 +157,9 @@ const JobAdvertisementList = () => {
                                 <WorkTimeForFilter setWorkTimeId={handleWorkTimeId} />
                             </Menu.Item>
 
-                            <Menu.Item>
+
                                 <CityList setCityId={handleCityId} />
-                            </Menu.Item>
+
 
                             <Menu.Item>
                                 <Button
@@ -162,7 +189,20 @@ const JobAdvertisementList = () => {
                                     <Table.HeaderCell>Çalışma Yeri</Table.HeaderCell>
                                     <Table.HeaderCell>Çalışma Zamanı</Table.HeaderCell>
                                     <Table.HeaderCell>Son Başvuru Tarihi</Table.HeaderCell>
-                                    <Table.HeaderCell/>
+                                    <Table.HeaderCell>
+                                        <Dropdown
+                                            style={{ width: "100%" }}
+                                            clearable
+                                            item
+                                            placeholder="Sayfa Boyutu (10)"
+                                            selection
+                                            onChange={(event, data) =>
+                                                handleChangePageSize(data.value)
+                                            }
+                                            name="pageSize"
+                                            options={pageSizeOption}
+                                        />
+                                    </Table.HeaderCell>
                                     <Table.HeaderCell/>
                                 </Table.Row>
                             </Table.Header>
@@ -195,12 +235,6 @@ const JobAdvertisementList = () => {
                                             </Button>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            {/*{*/}
-                                            {/*    favoriteService.getByJobAdvertisementId(jobAdvertisement.id).then(result => (*/}
-                                            {/*    <div>*/}
-                                            {/*        {result.data.data}*/}
-                                            {/*    </div>*/}
-                                            {/*))}*/}
                                             <Button
                                                 color={"red"}
                                                 animated={"fade"}
@@ -210,7 +244,7 @@ const JobAdvertisementList = () => {
                                             >
                                                 <Button.Content visible>Favorilere Ekle</Button.Content>
                                                 <Button.Content hidden>
-                                                    <Icon name="heart outline" size={"large"}/>
+                                                    <Icon name="heart" size={"large"}/>
                                                 </Button.Content>
                                             </Button>
                                         </Table.Cell>
@@ -218,6 +252,25 @@ const JobAdvertisementList = () => {
                                     </Table.Row>
                                 ))}
                             </Table.Body>
+                            <Table.Footer>
+                                <Table.Row>
+                                    <Table.HeaderCell colSpan='6'>
+                                        <Menu floated='right' pagination>
+                                            <Menu.Item as='a' icon>
+                                                <Icon name='chevron left' />
+                                            </Menu.Item>
+                                            {
+                                                pages.map(page => (
+                                                    <Menu.Item key={page} onClick={() => { handleChangePage(page) }} as='a'>{page}</Menu.Item>
+                                                ))
+                                            }
+                                            <Menu.Item as='a' icon>
+                                                <Icon name='chevron right' />
+                                            </Menu.Item>
+                                        </Menu>
+                                    </Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Footer>
                         </Table>
                     </Grid.Column>
                 </Grid.Row>

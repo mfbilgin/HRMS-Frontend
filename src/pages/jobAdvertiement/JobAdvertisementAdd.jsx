@@ -10,9 +10,13 @@ import MFBTextInput from "../../utilities/customFormControls/MFBTextInput";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
 import {Button, Card, Dropdown, Form, Grid, Icon, Label} from "semantic-ui-react";
 import {useHistory} from "react-router";
-import {toast} from "react-toastify";
+import swal from "sweetalert"
 
 const JobAdvertisementAdd = () => {
+  const [workTimes, setWorkTimes] = useState([]);
+  const [workTypes, setWorkType] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [jobPositions, setJobPositions] = useState([]);
   function handleJobAdvertisementValue(values) {
     return {
       employer: {
@@ -93,10 +97,7 @@ const JobAdvertisementAdd = () => {
     minSalary: Yup.number().min(0, "0'dan küçük olamaz"),
     maxSalary: Yup.number().min(0, "Minimum maaştan küçük olamaz."),
   });
-  const [workTimes, setWorkTimes] = useState([]);
-  const [workTypes, setWorkType] = useState([]);
-  const [cities, setCities] = useState([]);
-  const [jobPositions, setJobPositions] = useState([]);
+
 
   useEffect(() => {
     let workTimeService = new WorkTimeService();
@@ -137,32 +138,18 @@ const JobAdvertisementAdd = () => {
     value: jobPosition.jobPositionId,
   }));
 
-  // const handleOnChange = (props, fieldName, value) => {
-  //   props.setFieldValue(fieldName, value);
-  // };
   const handleChangeSemantic = (prop, value, fieldName) => {
     prop.setFieldValue(fieldName, value);
   };
   let history = useHistory();
-  // const handleOnClick = (prop) => {
-  //   prop.values.employerId = 3;
-  //   jobAdvertisementService
-  //     .add(handleJobAdvertisementValue(prop.values))
-  //     .then((result) => {
-  //       result.data.success
-  //         ? toast.success(result.data.message)
-  //         : toast.error(result.data.message);
-  //       history.push("/");
-  //     });
-  // };
   const handleOnSubmit = (values) => {
     values.employerId = 3;
     jobAdvertisementService
         .add(handleJobAdvertisementValue(values))
         .then((result) => {
-          result.data.success
-              ? toast.success(result.data.message)
-              : toast.error(result.data.message);
+         swal(
+             `${result.data.message}`,"",`${result.data.success ? "success" : "error"}`
+         )
           history.push("/");
         });  }
   return (

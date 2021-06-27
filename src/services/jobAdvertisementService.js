@@ -5,15 +5,19 @@ export default class JobAdvertisementService {
       "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrue"
     );
   }
-  getByStatusIsTrueAndOrderByApplicationDeadlineAsc() {
+  getByStatusIsTrueAndOrderByApplicationDeadlineAsc(pageNo,pageSize) {
     return axios.get(
-      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndOrderByApplicationDeadlineAsc"
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndOrderByApplicationDeadlineAsc?pageNo="+pageNo+"&pageSize="+pageSize
     );
   }
   getById(id) {
     return axios.get(
       "http://localhost:8080/api/jobAdvertisement/getById?id=" + id
     );
+  }
+
+  getPageCount(pageSize){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getPageCount?pageSize=" + pageSize)
   }
   approveJobAdvertisement(id) {
     return axios.get(
@@ -26,12 +30,6 @@ export default class JobAdvertisementService {
     return axios.post("http://localhost:8080/api/jobAdvertisement/delete", jobAdvertisement);
   }
 
-  getByStatusIsTrueAndEmployer_IdAndCity_IdOrderByApplicationDeadlineAsc(
-    employerId,
-    cityId
-  ) {
-    return axios.get("");
-  }
   getByStatusIsTrueAndApprovedByAdminIsFalse() {
     return axios.get(
       "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsFalse"
