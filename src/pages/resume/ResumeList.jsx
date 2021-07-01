@@ -41,13 +41,13 @@ const ResumeList = () => {
 
                                 <Table.Cell>
                                     {resume.skills.map((skill) => (
-                                    <p key={skill.id}>{skill.name}</p>
+                                    <p key={skill.skillId}>{skill.name}</p>
                                 ))}
                                 </Table.Cell>
 
                                 <Table.Cell>
                                     {resume.languages.map((language) => (
-                                    <p key={language.id}>{language.name + " Seviye: " + language.level}</p>
+                                    <p key={language.languageId}>{language.name + " Seviye: " + language.level}</p>
                                 ))}
                                 </Table.Cell>
 

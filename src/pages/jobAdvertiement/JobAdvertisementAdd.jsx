@@ -143,13 +143,14 @@ const JobAdvertisementAdd = () => {
   };
   let history = useHistory();
   const handleOnSubmit = (values) => {
-    values.employerId = 3;
+    //TODO JWT ile birlikte burası dinamik bir yapıya çevrilecek
+    values.employerId = 5;
     jobAdvertisementService
         .add(handleJobAdvertisementValue(values))
         .then((result) => {
          swal(
              `${result.data.message}`,"",`${result.data.success ? "success" : "error"}`
-         )
+         ).then();
           history.push("/");
         });  }
   return (
@@ -181,7 +182,7 @@ const JobAdvertisementAdd = () => {
                     onChange={(event, data) =>
                       handleChangeSemantic(formikprops, data.value, "cityId")
                     }
-                    onBlur={formikprops.onBlur}
+                    onBlur={formikprops.handleBlur}
                     name="cityId"
                     value={formikprops.values.cityId}
                     options={cityOption}
@@ -206,7 +207,7 @@ const JobAdvertisementAdd = () => {
                         "jobPositionId"
                       )
                     }
-                    onBlur={formikprops.onBlur}
+                    onBlur={formikprops.handleBlur}
                     name="jobPositionId"
                     value={formikprops.values.jobPositionId}
                     options={jobPositionOption}
@@ -234,7 +235,7 @@ const JobAdvertisementAdd = () => {
                         "workTypeId"
                       )
                     }
-                    onBlur={formikprops.onBlur}
+                    onBlur={formikprops.handleBlur}
                     name="cityId"
                     value={formikprops.values.workTypeId}
                     options={workTypeOption}
@@ -262,7 +263,7 @@ const JobAdvertisementAdd = () => {
                         "workTimeId"
                       )
                     }
-                    onBlur={formikprops.onBlur}
+                    onBlur={formikprops.handleBlur}
                     name="workTimeId"
                     value={formikprops.values.workTimeId}
                     options={workTimeOption}

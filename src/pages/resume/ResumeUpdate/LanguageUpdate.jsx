@@ -1,37 +1,41 @@
 import React, { useEffect, useState } from "react";
+import LanguageService from "../../../services/languageService";
+import { Button, Card, Dropdown, Form, Icon, Label } from "semantic-ui-react";
 import { Formik } from "formik";
-import { Form, Label, Button, Dropdown, Card, Icon } from "semantic-ui-react";
-import SkillService from "../../../services/skillService";
 import * as yup from "yup";
 import swal from "sweetalert";
 
-export default function SkillUpdate({ id }) {
-  const [skills, setSkills] = useState([]);
-  const [skill, setSkill] = useState({});
-
+export default function LanguageUpdate({ id }) {
+  const [languages, setLanguages] = useState([]);
+  const [language, setLanguage] = useState({});
   useEffect(() => {
-    let skillService = new SkillService();
-    skillService.getByStaffId(id).then((result) => setSkills(result.data.data));
+    let languageService = new LanguageService();
+    languageService
+      .getByStaffId(id)
+      .then((result) => setLanguages(result.data.data));
   }, [id]);
-
   const initialValues = {
-    skillId: "",
+    languageId: "",
     name: "",
+    level: "",
   };
-
   const schema = yup.object().shape({
-    skillId: yup.string().required("Bir seçim yapılmalıdır"),
+    languageId: yup.string().required("Bir seçim yapılmalıdır"),
+    level: yup
+      .number("", "Lütfen geçerli bir değer giriniz")
+      .min(1, "Dil seviyesi en az 1 olmalıdır")
+      .max(5, "Dil seviyesi en fazla 5 olabilir"),
   });
-
-  const skillOption = skills.map((skill, index) => ({
+  const languageOption = languages.map((language, index) => ({
     key: index,
-    text: skill.name,
-    value: skill.skillId,
+    text: language.name + "/" + language.level,
+    value: language.languageId,
   }));
 
-  const handleSkillValue = (value) => {
+  const handleLanguageValue = (value) => {
     return {
-      skillId: value.skillId,
+      languageId: value.languageId,
+      level: value.level,
       name: value.name,
       staff: {
         id: id,
@@ -48,36 +52,38 @@ export default function SkillUpdate({ id }) {
   const handleChangeSemantic = (prop, value, fieldName) => {
     prop.setFieldValue(fieldName, value);
     if (value !== "") {
-      let skillService = new SkillService();
-      skillService.getById(value).then((result) => setSkill(result.data.data));
+      let languageService = new LanguageService();
+      languageService
+        .getById(value)
+        .then((result) => setLanguage(result.data.data));
     } else {
-      setSkill({});
+      setLanguage({});
     }
   };
-
   const handleReadOnly = (prop) => {
-    return prop.values.skillId === "";
+    return prop.values.languageId === "";
   };
-
   const handleOnSubmit = (values) => {
-    values.skillId = values.skillId !== "" ? values.skillId : skill.skillId;
-    values.name = values.name !== "" ? values.name : skill.name;
-    let skillService = new SkillService();
-    skillService
-      .update(handleSkillValue(values))
+    values.languageId =
+      values.languageId !== "" ? values.languageId : language.languageId;
+    values.level = values.level !== "" ? values.level : language.level;
+    values.name = values.name !== "" ? values.name : language.name;
+    let languageService = new LanguageService();
+    languageService
+      .update(handleLanguageValue(values))
       .then((result) =>
         swal(
           `${result.data.message}`,
           "",
           `${result.data.success ? "success" : "error"}`
-        ).then(() => window.location.reload())
+        ).then(window.location.reload())
       );
   };
 
-  const handleSkillDelete = () => {
-    if (skill.skillId !== undefined) {
-      let skillService = new SkillService();
-      skillService.delete(skill.skillId).then((result) =>
+  const handleSchoolDelete = () => {
+    if (language.schoolId !== undefined) {
+      let languageService = new LanguageService();
+      languageService.delete(language.schoolId).then((result) =>
         swal(
           `${result.data.message}`,
           "",
@@ -86,13 +92,13 @@ export default function SkillUpdate({ id }) {
         ).then(window.location.reload())
       );
     } else {
-      swal("Bir okul seçiniz", "", "error").then();
+      swal("Bir dil seçiniz", "", "error").then();
     }
   };
 
   return (
     <Card color={"teal"} fluid style={{ marginTop: 20 }}>
-      <Card.Header content={"Yetenek Bilgisini Güncelle"} />
+      <Card.Header content={"Dil Bilgisini Güncelle"} />
       <Card.Content>
         <Formik
           initialValues={initialValues}
@@ -108,31 +114,31 @@ export default function SkillUpdate({ id }) {
                   style={{ width: "100%" }}
                   clearable
                   item
-                  name="skillId"
-                  placeholder="Güncellenecek Yetenek"
+                  name="languageId"
+                  placeholder="Güncellenecek Dil"
                   additionPosition="bottom"
                   search
                   selection
                   onChange={(event, data) =>
-                    handleChangeSemantic(formikprops, data.value, "skillId")
+                    handleChangeSemantic(formikprops, data.value, "languageId")
                   }
                   onBlur={formikprops.handleBlur}
-                  value={formikprops.values.skillId}
-                  options={skillOption}
+                  value={formikprops.values.languageId}
+                  options={languageOption}
                 />
-                {formikprops.touched.skillId && !!formikprops.errors.skillId ? (
+                {formikprops.touched.languageId &&
+                !!formikprops.errors.languageId ? (
                   <Label
                     pointing
                     basic
                     color={"red"}
-                    content={formikprops.errors.skillId}
+                    content={formikprops.errors.languageId}
                   />
                 ) : null}
-
                 <input
                   style={{ marginTop: 10 }}
                   name="name"
-                  placeholder="Yetenek Adı"
+                  placeholder="Dil Adı"
                   readOnly={handleReadOnly(formikprops)}
                   type="text"
                   onChange={formikprops.handleChange}
@@ -145,6 +151,25 @@ export default function SkillUpdate({ id }) {
                     basic
                     color={"red"}
                     content={formikprops.errors.name}
+                  />
+                ) : null}
+
+                <input
+                  style={{ marginTop: 10 }}
+                  placeholder="Seviye (1-5)"
+                  readOnly={handleReadOnly(formikprops)}
+                  type="text"
+                  onChange={formikprops.handleChange}
+                  onBlur={formikprops.handleBlur}
+                  value={formikprops.values.level}
+                  name="level"
+                />
+                {formikprops.touched.level && !!formikprops.errors.level ? (
+                  <Label
+                    pointing
+                    basic
+                    color={"red"}
+                    content={formikprops.errors.level}
                   />
                 ) : null}
               </Form.Field>
@@ -172,7 +197,7 @@ export default function SkillUpdate({ id }) {
         <Button
           style={{ width: "50%" }}
           onClick={() => {
-            handleSkillDelete();
+            handleSchoolDelete();
           }}
           animated="fade"
           negative
@@ -180,7 +205,7 @@ export default function SkillUpdate({ id }) {
           <Button.Content visible>
             <Icon name="trash alternate" />
           </Button.Content>
-          <Button.Content hidden>Seçili Yeteneği Sil</Button.Content>
+          <Button.Content hidden>Seçili Okulu Sil</Button.Content>
         </Button>
       </Card.Content>
     </Card>

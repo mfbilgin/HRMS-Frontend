@@ -12,6 +12,7 @@ import JobAdvertisementApprove from "../pages/jobAdvertiement/JobAdvertisementAp
 import SystemStaffList from "../pages/systemStaff/SystemStaffList";
 import SystemStaffUpdate from "../pages/systemStaff/SystemStaffUpdate";
 import FavoriteList from "./Favorite/FavoriteList";
+import ResumeUpdate from "../pages/resume/ResumeUpdate";
 
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
     <Grid>
       <Grid.Row>
         <Grid.Column>
+
           <Route exact path={"/girişYap"} component={Login} />
           <Route exact path={"/"} component={JobAdvertisementList} />
           <Route
@@ -31,6 +33,7 @@ export default function Home() {
             path={"/jobAdvertisementDetails/:id"}
             component={JobAdvertisementDetail}
           />
+
           <Route
             exact
             path={"/işİlanıOnayla"}
@@ -41,6 +44,11 @@ export default function Home() {
             exact
             path={"/curriculumVitaeDetails/:id"}
             component={ResumeDetail}
+          />
+          <Route
+              exact
+              path={"/curriculumVitae/update/:id"}
+              component={ResumeUpdate}
           />
           <Route exact path={"/şirketler/:id"} component={EmployerDetail} />
           <Route exact path={"/ilanEkle"} component={JobAdvertisementAdd} />

@@ -41,13 +41,13 @@ export default class JobAdvertisementService {
   }
 
 
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(cityId){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id?cityId="+cityId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(cityId,pageNo,pageSize){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&cityId="+cityId);
   }
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(cityId,workTimeId){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id?cityId=" +cityId + "&workTimeId="+workTimeId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(cityId,workTimeId,pageNo,pageSize){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&cityId=" +cityId+"&workTimeId="+workTimeId);
   }
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id?workTimeId="+workTimeId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId,pageNo,pageSize){
+    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&workTimeId="+workTimeId);
   }
 }

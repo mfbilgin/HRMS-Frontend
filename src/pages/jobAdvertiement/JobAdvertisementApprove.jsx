@@ -4,7 +4,7 @@ import { useState } from "react";
 import JobAdvertisementService from "../../services/jobAdvertisementService";
 import { Link, useHistory } from "react-router-dom";
 import { Button, Icon, Table } from "semantic-ui-react";
-import { toast } from "react-toastify";
+import swal from "sweetalert";
 
 export default function JobAdvertisementApprove() {
   const [jobAdvertisement, setJobAdvertisement] = useState([]);
@@ -19,14 +19,14 @@ export default function JobAdvertisementApprove() {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .approveJobAdvertisement(id)
-      .then((result) => toast.success(result.data.message));
+      .then((result) => swal(`${result.data.message}`,"",`${result.data.success ? "success" : "error"}`));
+    handleReload();
   };
   const handleRefuseOnClick = (jobAdvertisement) => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .delete(jobAdvertisement)
-      .then((result) => toast.success(result.data.message, "success"));
-    new Promise((r) => setTimeout(r, 500));
+      .then((result) => swal(`${result.data.message}`,"",`${result.data.success ? "success" : "error"}`));
     handleReload();
   };
 
@@ -40,7 +40,7 @@ export default function JobAdvertisementApprove() {
   return (
     <div style={{ margin: 20 }}>
       <Table>
-        <Table.Header style={{ textAlign: "center" }}></Table.Header>
+        <Table.Header style={{textAlign: "center"}}/>
         <Table.Header>
           <Table.Row textAlign={"center"}>
             <Table.HeaderCell>Şirket Adı</Table.HeaderCell>
