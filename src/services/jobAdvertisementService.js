@@ -5,9 +5,12 @@ export default class JobAdvertisementService {
       "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrue"
     );
   }
-  getByStatusIsTrueAndOrderByApplicationDeadlineAsc(pageNo,pageSize) {
+  getByStatusIsTrueAndOrderByApplicationDeadlineAsc(pageNo, pageSize) {
     return axios.get(
-      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndOrderByApplicationDeadlineAsc?pageNo="+pageNo+"&pageSize="+pageSize
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndOrderByApplicationDeadlineAsc?pageNo=" +
+        pageNo +
+        "&pageSize=" +
+        pageSize
     );
   }
   getById(id) {
@@ -15,9 +18,18 @@ export default class JobAdvertisementService {
       "http://localhost:8080/api/jobAdvertisement/getById?id=" + id
     );
   }
+  getByStatusTrueAndEmployerId(employerId) {
+    return axios.get(
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndEmployer_Id?id=" +
+        employerId
+    );
+  }
 
-  getPageCount(pageSize){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getPageCount?pageSize=" + pageSize)
+  getPageCount(pageSize) {
+    return axios.get(
+      "http://localhost:8080/api/jobAdvertisement/getPageCount?pageSize=" +
+        pageSize
+    );
   }
   approveJobAdvertisement(id) {
     return axios.get(
@@ -27,7 +39,10 @@ export default class JobAdvertisementService {
   }
 
   delete(jobAdvertisement) {
-    return axios.post("http://localhost:8080/api/jobAdvertisement/delete", jobAdvertisement);
+    return axios.post(
+      "http://localhost:8080/api/jobAdvertisement/delete",
+      jobAdvertisement
+    );
   }
 
   getByStatusIsTrueAndApprovedByAdminIsFalse() {
@@ -40,14 +55,49 @@ export default class JobAdvertisementService {
     return axios.post("http://localhost:8080/api/jobAdvertisement/add", value);
   }
 
-
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(cityId,pageNo,pageSize){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&cityId="+cityId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id(
+    cityId,
+    pageNo,
+    pageSize
+  ) {
+    return axios.get(
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_Id?pageNo=" +
+        pageNo +
+        "&pageSize=" +
+        pageSize +
+        "&cityId=" +
+        cityId
+    );
   }
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(cityId,workTimeId,pageNo,pageSize){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&cityId=" +cityId+"&workTimeId="+workTimeId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id(
+    cityId,
+    workTimeId,
+    pageNo,
+    pageSize
+  ) {
+    return axios.get(
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndCity_IdAndWorkTime_Id?pageNo=" +
+        pageNo +
+        "&pageSize=" +
+        pageSize +
+        "&cityId=" +
+        cityId +
+        "&workTimeId=" +
+        workTimeId
+    );
   }
-  getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(workTimeId,pageNo,pageSize){
-    return axios.get("http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id?pageNo="+pageNo+"&pageSize="+pageSize+"&workTimeId="+workTimeId);
+  getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id(
+    workTimeId,
+    pageNo,
+    pageSize
+  ) {
+    return axios.get(
+      "http://localhost:8080/api/jobAdvertisement/getByStatusIsTrueAndApprovedByAdminIsTrueAndWorkTime_Id?pageNo=" +
+        pageNo +
+        "&pageSize=" +
+        pageSize +
+        "&workTimeId=" +
+        workTimeId
+    );
   }
 }

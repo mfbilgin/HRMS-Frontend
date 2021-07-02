@@ -2,14 +2,15 @@ import { Button, Icon, Menu } from "semantic-ui-react";
 import SignedOut from "./SignedOut";
 import SignedIn from "./SignedIn";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Navi = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-
+  let history = useHistory();
   function handleSignOut() {
     setIsAuthenticated(false);
+    history.push("/");
   }
   function handleSignIn() {
     setIsAuthenticated(true);
@@ -27,7 +28,7 @@ const Navi = () => {
         <Menu.Menu>
           <Menu.Item>
             <Button
-                animated="fade"
+              animated="fade"
               color={"orange"}
               as={Link}
               to={"/curriculumVitaes"}
@@ -42,7 +43,12 @@ const Navi = () => {
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <Button as={Link} to={"/ilanEkle"} animated="fade" color={"facebook"}>
+            <Button
+              as={Link}
+              to={"/ilanEkle"}
+              animated="fade"
+              color={"facebook"}
+            >
               <Button.Content visible>İlan Ekle</Button.Content>
               <Button.Content hidden>
                 <Icon name={"add"} />

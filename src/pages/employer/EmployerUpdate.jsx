@@ -1,61 +1,54 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import SystemStaffService from "../../services/systemStaffService";
+import EmployerService from "../../services/employerService";
+import * as yup from "yup";
+import swal from "sweetalert";
 import { Button, Card, FormField, Form, Icon } from "semantic-ui-react";
 import { Formik } from "formik";
-import * as yup from "yup";
 import MFBTextInput from "../../utilities/customFormControls/MFBTextInput";
-import swal from "sweetalert";
 
-export default function SystemStaffUpdate() {
+export default function EmployerUpdate() {
   let { id } = useParams();
-  const [systemStaff, setSystemStaff] = useState({});
-  let initialValues = {
-    birthYear: "",
-    email: "",
-    firstName: "",
-    id: id,
-    identificationNumber: "",
-    lastName: "",
-    password: "",
-    verifiedByEmail: true,
-  };
+  const [employer, setEmployer] = useState({});
   useEffect(() => {
-    let systemStaffService = new SystemStaffService();
-    systemStaffService
-      .getById(id)
-      .then((result) => setSystemStaff(result.data.data));
+    let employerService = new EmployerService();
+    employerService.getById(id).then((result) => setEmployer(result.data.data));
   }, [id]);
 
-  const handleValues = (values) => {
-    if (values.identificationNumber === "") {
-      values.identificationNumber = systemStaff.identificationNumber;
-    }
-    if (values.birthYear === "") {
-      values.birthYear = systemStaff.birthYear;
-    }
-    if (values.email === "") {
-      values.email = systemStaff.email;
-    }
-    if (values.firstName === "") {
-      values.firstName = systemStaff.firstName;
-    }
-    if (values.lastName === "") {
-      values.lastName = systemStaff.lastName;
-    }
-    if (values.password === "") {
-      values.password = systemStaff.password;
-    }
+  const initialValues = {
+    id: id,
+    companyName: "",
+    webAddress: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    activatedBySystemStaff: false,
+    verifiedByEmail: true,
   };
   const schema = yup.object().shape({
-    email: yup.string().email("Geçerli bir email adresi giriniz"),
+    email: yup.string().email("Geçerli bir mail formatı giriniz."),
   });
+  const handleValues = (values) => {
+    if (values.email === "") {
+      values.email = employer.email;
+    }
+    if (values.password === "") {
+      values.password = employer.password;
+    }
+    if (values.companyName === "") {
+      values.companyName = employer.companyName;
+    }
+    if (values.webAddress === "") {
+      values.webAddress = employer.webAddress;
+    }
+    if (values.phoneNumber === "") {
+      values.phoneNumber = employer.phoneNumber;
+    }
+  };
   const handleOnSubmit = (values) => {
     handleValues(values);
-    let systemStaffService = new SystemStaffService();
-    systemStaffService
+    let employerService = new EmployerService();
+    employerService
       .update(values)
       .then((result) =>
         swal(
@@ -72,7 +65,7 @@ export default function SystemStaffUpdate() {
         fluid
         color="teal"
         style={{ marginTop: 20 }}
-        header={"Bilgiler Güncelle"}
+        header={"Bilgileri Güncelle"}
       />
       <Card fluid={true}>
         <Formik
@@ -93,9 +86,9 @@ export default function SystemStaffUpdate() {
                 <FormField>
                   <MFBTextInput
                     style={{ width: "100%" }}
-                    placeholder={"İsim"}
-                    name={"firstName"}
-                    value={formikprops.values.firstName}
+                    placeholder={"Şirket Adı"}
+                    name={"companyName"}
+                    value={formikprops.values.companyName}
                     onChange={formikprops.handleChange}
                     onBlur={formikprops.handleBlur}
                   />
@@ -104,9 +97,9 @@ export default function SystemStaffUpdate() {
                 <FormField>
                   <MFBTextInput
                     style={{ width: "100%" }}
-                    placeholder="Soyisim"
-                    name={"lastName"}
-                    value={formikprops.values.lastName}
+                    placeholder="Web Sitesi (www.example.com)"
+                    name={"webAddress"}
+                    value={formikprops.values.webAddress}
                     onChange={formikprops.handleChange}
                     onBlur={formikprops.handleBlur}
                   />
@@ -114,19 +107,9 @@ export default function SystemStaffUpdate() {
                 <FormField>
                   <MFBTextInput
                     style={{ width: "100%" }}
-                    placeholder="Doğum Yılı"
-                    name={"birthYear"}
-                    value={formikprops.values.birthYear}
-                    onChange={formikprops.handleChange}
-                    onBlur={formikprops.handleBlur}
-                  />
-                </FormField>
-                <FormField>
-                  <MFBTextInput
-                    style={{ width: "100%" }}
-                    placeholder="Kimlik Numarası"
-                    name={"identificationNumber"}
-                    value={formikprops.values.identificationNumber}
+                    placeholder="Telefon Numarası (Başında 0 olmadan boşluksuz şekilde)"
+                    name={"phoneNumber"}
+                    value={formikprops.values.phoneNumber}
                     onChange={formikprops.handleChange}
                     onBlur={formikprops.handleBlur}
                   />

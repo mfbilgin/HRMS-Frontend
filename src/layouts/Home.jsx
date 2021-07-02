@@ -13,14 +13,14 @@ import SystemStaffList from "../pages/systemStaff/SystemStaffList";
 import SystemStaffUpdate from "../pages/systemStaff/SystemStaffUpdate";
 import FavoriteList from "./Favorite/FavoriteList";
 import ResumeUpdate from "../pages/resume/ResumeUpdate";
-
+import EmployerUpdate from "../pages/employer/EmployerUpdate";
+import EmployerUpdateApprove from "../pages/employer/EmployerUpdateApprove";
 
 export default function Home() {
   return (
     <Grid>
       <Grid.Row>
         <Grid.Column>
-
           <Route exact path={"/girişYap"} component={Login} />
           <Route exact path={"/"} component={JobAdvertisementList} />
           <Route
@@ -46,11 +46,21 @@ export default function Home() {
             component={ResumeDetail}
           />
           <Route
-              exact
-              path={"/curriculumVitae/update/:id"}
-              component={ResumeUpdate}
+            exact
+            path={"/curriculumVitae/update/:id"}
+            component={ResumeUpdate}
           />
           <Route exact path={"/şirketler/:id"} component={EmployerDetail} />
+          <Route
+            exact
+            path={"/şirket/güncelle/:id"}
+            component={EmployerUpdate}
+          />
+          <Route
+            exact
+            path={"/şirketGüncellemesiOnayla"}
+            component={EmployerUpdateApprove}
+          />
           <Route exact path={"/ilanEkle"} component={JobAdvertisementAdd} />
           <Route
             exact
@@ -62,12 +72,7 @@ export default function Home() {
             path={"/sistemÇalışanBilgileriGüncelle/:id"}
             component={SystemStaffUpdate}
           />
-          <Route
-              exact
-              path={"/favorilerim"}
-              component={FavoriteList}
-          />
-
+          <Route exact path={"/favorilerim"} component={FavoriteList} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
