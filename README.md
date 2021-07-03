@@ -10,7 +10,7 @@
 ![Filtreleme(2)](https://user-images.githubusercontent.com/65377932/124353630-5941bd00-dc10-11eb-87a9-f5ac393ae0ed.PNG)
 ![Filtreleme(3)](https://user-images.githubusercontent.com/65377932/124353632-5a72ea00-dc10-11eb-8b8b-e49b2b832afb.PNG)
 ![Filtreleme(4)](https://user-images.githubusercontent.com/65377932/124353633-5ba41700-dc10-11eb-8a3d-60446856a466.PNG)
-![Favoriler(1)](https://user-images.githubusercontent.com/65377932/124353636-5e9f0780-dc10-11eb-94c8-2dfc55def750.PNG)
+![Favoriler(1)](https://user-images.githubusercontent.com/65377932/124353871-d1f54900-dc11-11eb-97db-b77fa9e74e0a.PNG)
 ![Favoriler(2)](https://user-images.githubusercontent.com/65377932/124353637-5fd03480-dc10-11eb-876a-8db39ec3372c.PNG)
 ![İlanDetayı](https://user-images.githubusercontent.com/65377932/124353640-6363bb80-dc10-11eb-8e4f-dc6a2885ccdf.PNG)
 ![İşİlanıFormHatası](https://user-images.githubusercontent.com/65377932/124353644-678fd900-dc10-11eb-9a40-6fa6bdd21ab6.PNG)
