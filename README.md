@@ -1,5 +1,5 @@
 # HRMS (İnsan Kaynakları Yönetim Sistemi) projesi
-###### Bu proje Engin Demiroğ (Nitelikli) Yazılım Geliştirici Yetiştirme Kampı Java&React kapsamında www.kodlama.io üzerinden verilen isterler doğrultusunda yazılmıştır.
+###### Bu proje Engin Demiroğ Yazılım Geliştirici Yetiştirme Kampı (JAVA & REACT) kapsamında www.kodlama.io üzerinden verilen isterler doğrultusunda yazılmıştır.
 
 ## Bazı proje görüntüleri : 
 ![Anasayfa(1)](https://user-images.githubusercontent.com/65377932/124353620-47601a00-dc10-11eb-967c-d47ede648cfe.PNG)
